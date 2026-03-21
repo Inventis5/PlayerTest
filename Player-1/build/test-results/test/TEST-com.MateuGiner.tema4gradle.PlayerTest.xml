@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.MateuGiner.tema4gradle.PlayerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-03-11T18:12:01.388Z" hostname="INVENTISMAT" time="0.028">
+  <properties/>
+  <testcase name="curarNoSuperaMaximo()" classname="com.MateuGiner.tema4gradle.PlayerTest" time="0.022"/>
+  <testcase name="curarUnMuertoNoFuncionaAtaque()" classname="com.MateuGiner.tema4gradle.PlayerTest" time="0.001"/>
+  <testcase name="curarSumaVida()" classname="com.MateuGiner.tema4gradle.PlayerTest" time="0.001"/>
+  <testcase name="curarUnMuertoNoFunciona()" classname="com.MateuGiner.tema4gradle.PlayerTest" time="0.002"/>
+  <system-out><![CDATA[Comienzan los tests
+Finalizan los tests
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
