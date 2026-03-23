@@ -1,5 +1,6 @@
 package com.MateuGiner.tema4gradle;
 
+import com.MateuGiner.tema4gradle.Config.Config;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,10 +14,7 @@ class PlayerTest {
 
     @BeforeEach
     void setup() {
-        String nombre = "Steve";
-        int vida = 15;
-        int ataque = 20;
-        player = new Player(nombre, vida, ataque);
+        player = new Player(Config.PLAYER_NOMBRE, Config.PLAYER_VIDA, Config.PLAYER_ATAQUE);
     }
 
     @AfterEach
@@ -29,9 +27,8 @@ class PlayerTest {
         int beforeVida = player.getVida();
         player.curar(5);
         assertEquals(beforeVida + 5,player.getVida());
-
-
     }
+
     @Test
     void curarNoSuperaMaximo() {
         int beforeVida = player.getVida();
@@ -54,9 +51,47 @@ class PlayerTest {
         assertEquals(0,player.getVida());
     }
 
+    void constructorInstanciaInstaladaCorrectamente() {
+    assertEquals(Config.PLAYER_NOMBRE, player.getNombre());
+    assertEquals(Config.PLAYER_VIDA, player.getVida());
+    assertEquals(Config.PLAYER_ATAQUE, player.getAtaque());
+    }
+
     @Test
-    void curarUnMuertoNoFuncionaAtaque() {
-        player.recibirDanyo(player.getVida());
+    void VidaNegativa() {
+    assertThrows(IllegalArgumentException.class, () -> {player = new  Player("Steve", -10, 10);});
+
+    }
+
+    @Test
+    void AtaqueNegativo() {
+        assertThrows(IllegalArgumentException.class, () -> {player = new  Player("Steve", 10, -10);});
+    }
+
+    @Test
+    void constructorNoSuperaVidaMaximo() {
+        assertThrows(IllegalArgumentException.class, () -> {player = new  Player("Steve", 105, 10);});
+    }
+
+    @Test
+    void recibirDanyoNoPermiteVidaNegativa() {
+        player.recibirDanyo(player.getVida() + 10);
+        assertEquals(0, player.getVida());
+    }
+
+    @Test
+    void recibirDanyo() {
+        int danyo = 10;
+        player.recibirDanyo(danyo);
+        assertEquals(Config.PLAYER_VIDA - danyo, player.getVida());
+    }
+
+    @Test
+    void recibirDanyoNoPermiteCantidadNegativa() {
+        int danyo = -10;
+        player.recibirDanyo(danyo);
+        assertThrows(Exception.class, () -> {player.recibirDanyo(danyo);});
+
     }
 
     @AfterAll
