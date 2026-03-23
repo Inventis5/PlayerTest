@@ -13,9 +13,9 @@ class PlayerTest {
 
     @BeforeEach
     void setup() {
-        final String nombre = "Steve";
-        final int vida = 10;
-        final int ataque = 20;
+        String nombre = "Steve";
+        int vida = 15;
+        int ataque = 20;
         player = new Player(nombre, vida, ataque);
     }
 
@@ -26,29 +26,37 @@ class PlayerTest {
 
         @Test
     void curarSumaVida() {
+        int beforeVida = player.getVida();
         player.curar(5);
-        assertEquals(10,player.getVida());
+        assertEquals(beforeVida + 5,player.getVida());
 
 
     }
     @Test
     void curarNoSuperaMaximo() {
-        player.curar(15);
-        assertEquals(100,player.getVida());
-        assertTrue(player.getVida() < 105);
+        int beforeVida = player.getVida();
+        player.curar(90);
+        assertNotEquals(beforeVida + 90,player.getVida());
+        assertTrue(player.getVida() <= 100);
     }
 
     @Test
     void curarUnMuertoNoFunciona() {
+        player = new Player("Steve", 0, 10);
         player.curar(50);
         assertEquals(0,player.getVida());
     }
 
     @Test
     void curarUnMuertoNoFuncionaAtaque() {
-        player.recibirDanyo(10);
+        player.recibirDanyo(player.getVida());
         player.curar(50);
         assertEquals(0,player.getVida());
+    }
+
+    @Test
+    void curarUnMuertoNoFuncionaAtaque() {
+        player.recibirDanyo(player.getVida());
     }
 
     @AfterAll
